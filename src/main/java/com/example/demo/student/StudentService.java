@@ -1,5 +1,6 @@
 package com.example.demo.student;
 
+import com.example.demo.exception.ApiRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +26,8 @@ public class StudentService {
     public void addNewStudent(Student student) {
         Optional<Student> studentOptional = studentRepository.findStudentByEmail(student.getEmail());
         if (studentOptional.isPresent()) {
-            throw new IllegalStateException("email taken");
+            throw new ApiRequestException("email taken");
+            // throw new IllegalStateException("email taken");
         }
         studentRepository.save(student);
     }
@@ -48,7 +50,8 @@ public class StudentService {
         if (email != null && email.trim().length() > 0 && !Objects.equals(student.getEmail(), email)) {
             Optional<Student> studentOptional = studentRepository.findStudentByEmail(email);
             if (studentOptional.isPresent()) {
-                throw new IllegalStateException("email taken");
+                throw new ApiRequestException("email taken");
+                // throw new IllegalStateException("email taken");
             }
             student.setEmail(email);
         }
