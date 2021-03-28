@@ -2,6 +2,8 @@ package com.example.demo.student;
 
 import com.example.demo.exception.ApiRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -9,7 +11,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-@Service
+// @Component
+// @Qualifier // using with Autowired
+
+@Service // Business logic here, this is service functions class
 public class StudentService {
 
     private final StudentRepository studentRepository;

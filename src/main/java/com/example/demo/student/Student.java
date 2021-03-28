@@ -1,13 +1,27 @@
 package com.example.demo.student;
 
+import org.springframework.beans.factory.annotation.Value;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.Period;
 
-@Entity
-@Table
+// @MappedSuperclass
+// @Basic
+// @Access(AccessType.PROPERTY)
+// @Cacheable
+
+// @Column // JPA Hibernate annotation for column name
+
+// @NamedQuery()
+// @NamedNativeQuery()
+
+
+@Entity(name = "Student") // JPA
+@Table(name = "student", uniqueConstraints = {@UniqueConstraint(name = "student_email_unique", columnNames = "email")})
+// JPA
 public class Student {
-    @Id
+    @Id // Primary key
     @SequenceGenerator(
             name = "student_sequence",
             sequenceName = "student_sequence",
@@ -17,13 +31,25 @@ public class Student {
             strategy = GenerationType.SEQUENCE,
             generator = "student_sequence"
     )
+    @Column(name = "id", updatable = false)
     private Long id;
+
+    // @Value("$name") // add properties to bean
+
+    @Column(name = "name", nullable = false, columnDefinition = "TEXT")
     private String name;
-    @Transient
+
+    @Transient // JPA
+    @Column(name = "age", nullable = false)
     private Integer age;
+
+    @Column(name = "dob", nullable = false)
     private LocalDate dob;
+
+    @Column(name = "email", nullable = false, columnDefinition = "TEXT")
     private String email;
 
+    // JPA
     public Student() {
     }
 
@@ -90,4 +116,11 @@ public class Student {
                 ", email='" + email + '\'' +
                 '}';
     }
+
+    /*
+    @Embeddable
+    static class Embedded{
+
+    }
+    */
 }

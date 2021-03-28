@@ -20,8 +20,11 @@ public class StudentConfig {
             Student Andrew = new Student(
                     "Andrew", LocalDate.of(1991, Month.DECEMBER, 13), "andrey91zh@gmail.com"
             );
+            Student Victor = new Student(
+                    "Victor", LocalDate.of(1990, Month.APRIL, 12), "victor@gmail.com"
+            );
 
-            repository.saveAll(List.of(Artem, Andrew));
+            repository.saveAll(List.of(Artem, Andrew, Victor));
         };
     }
 }
