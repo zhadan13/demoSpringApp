@@ -10,12 +10,9 @@ import java.time.Period;
 // @Basic
 // @Access(AccessType.PROPERTY)
 // @Cacheable
-
 // @Column // JPA Hibernate annotation for column name
-
 // @NamedQuery()
 // @NamedNativeQuery()
-
 
 @Entity(name = "Student") // JPA
 @Table(name = "student", uniqueConstraints = {@UniqueConstraint(name = "student_email_unique", columnNames = "email")})
@@ -108,18 +105,18 @@ public class Student {
 
     @Override
     public String toString() {
-        return "Student{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", age=" + age +
-                ", dob=" + dob +
-                ", email='" + email + '\'' +
+        return "Student { " +
+                "id = " + id +
+                ", name = '" + name + '\'' +
+                ", age = " + age +
+                ", dob = " + dob +
+                ", email = '" + email + '\'' +
                 '}';
     }
 
     /*
     @Embeddable
-    static class Embedded{
+    static class Embedded {
 
     }
     */

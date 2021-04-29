@@ -10,8 +10,7 @@ import java.time.ZonedDateTime;
 
 @ControllerAdvice
 public class ApiExceptionHandler {
-
-    HttpStatus badRequest = HttpStatus.BAD_REQUEST;
+    final static HttpStatus badRequest = HttpStatus.BAD_REQUEST;
 
     @ExceptionHandler(value = {ApiRequestException.class})
     public ResponseEntity<Object> handleApiRequestException(ApiRequestException e) {

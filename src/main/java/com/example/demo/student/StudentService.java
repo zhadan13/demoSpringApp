@@ -1,6 +1,7 @@
 package com.example.demo.student;
 
 import com.example.demo.exception.ApiRequestException;
+import com.example.demo.test.CustomQualifier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -11,15 +12,16 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-// @Component
+// @Component("componentName")
 // @Qualifier // using with Autowired
 
 @Service // Business logic here, this is service functions class
 public class StudentService {
-
     private final StudentRepository studentRepository;
 
-    @Autowired
+    @Autowired(required = true)
+    // @Qualifier(value = "")
+    // @CustomQualifier(value = "customName")
     public StudentService(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
     }
@@ -31,8 +33,7 @@ public class StudentService {
     public void addNewStudent(Student student) {
         Optional<Student> studentOptional = studentRepository.findStudentByEmail(student.getEmail());
         if (studentOptional.isPresent()) {
-            throw new ApiRequestException("email taken");
-            // throw new IllegalStateException("email taken");
+            throw new ApiRequestException("Email " + student.getEmail() + " taken!");
         }
         studentRepository.save(student);
     }
@@ -40,7 +41,7 @@ public class StudentService {
     public void deleteStudent(Long studentId) {
         boolean exists = studentRepository.existsById(studentId);
         if (!exists) {
-            throw new IllegalStateException("student with id " + studentId + " does not exists");
+            throw new IllegalStateException("Student with id " + studentId + " does not exists!");
         }
         studentRepository.deleteById(studentId);
     }
@@ -48,15 +49,14 @@ public class StudentService {
     @Transactional
     public void updateStudent(Long studentId, String name, String email) {
         Student student = studentRepository.findById(studentId)
-                .orElseThrow(() -> new IllegalStateException("student with id " + studentId + " does not exists"));
+                .orElseThrow(() -> new IllegalStateException("Student with id " + studentId + " does not exists!"));
         if (name != null && name.trim().length() > 0 && !Objects.equals(student.getName(), name)) {
             student.setName(name);
         }
         if (email != null && email.trim().length() > 0 && !Objects.equals(student.getEmail(), email)) {
             Optional<Student> studentOptional = studentRepository.findStudentByEmail(email);
             if (studentOptional.isPresent()) {
-                throw new ApiRequestException("email taken");
-                // throw new IllegalStateException("email taken");
+                throw new ApiRequestException("Email " + email + " taken!");
             }
             student.setEmail(email);
         }

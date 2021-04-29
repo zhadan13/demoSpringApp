@@ -6,9 +6,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-@Repository // class to work with data
+@Repository // class for work with data
 public interface StudentRepository extends JpaRepository<Student, Long> {
-
     @Query("SELECT s FROM Student s WHERE s.email = ?1")
     Optional<Student> findStudentByEmail(String email);
 }

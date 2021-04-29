@@ -1,6 +1,5 @@
 package com.example.demo.student;
 
-import com.sun.istack.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +11,6 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "api/v1/student")
 public class StudentController {
-
     private final StudentService studentService;
 
     @Autowired

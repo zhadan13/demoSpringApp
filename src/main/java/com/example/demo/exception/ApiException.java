@@ -32,6 +32,4 @@ public class ApiException {
     public ZonedDateTime getTimestamp() {
         return timestamp;
     }
-
-
 }
